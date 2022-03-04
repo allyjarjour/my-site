@@ -1,0 +1,10 @@
+@import './../../styles/variables.scss';
+
+.home {
+  padding-top: 100px;
+  background-color: $background;
+
+  .down-arrow {
+    border-top-color: $nav-bar;
+  }
+}
