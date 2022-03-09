@@ -5,9 +5,12 @@ import './about.scss';
 
 export default function About() {
   return (
-    <div id='about' className='about'>
+    <section id='about' className='about'>
       <DownArrow />
-      <Typography variant="h1">About Me</Typography>
-    </div>
+      <div className='inner-container'>
+        <img className='profile-pic' src='./profile_pic.jpg' alt='Head shot of Ally Jarjour at the beach.'/>
+        <Typography variant="h1">About Me</Typography>
+      </div>
+    </section>
   );
 }

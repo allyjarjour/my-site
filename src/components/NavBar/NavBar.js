@@ -1,25 +1,37 @@
-import { Link } from '@mui/material';
-import React from 'react'
-import './navBar.scss';
+import React from "react";
+import "./navBar.scss";
+
+const navItems = [
+  {
+    href: "#home",
+    title: "Home",
+  },
+  {
+    href: "#about",
+    title: "About",
+  },
+  {
+    href: "#tools",
+    title: "Tools",
+  },
+  {
+    href: "#projects",
+    title: "Projects",
+  },
+  {
+    href: "#contact",
+    title: "Contact",
+  },
+];
 
 export default function NavBar() {
   return (
     <nav className="nav-bar">
-      <a className="nav-link" href="#home">
-        Home
-      </a>
-      <a className="nav-link" href="#about">
-        About
-      </a>
-      <a className="nav-link" href="#tools">
-        Tools
-      </a>
-      <a className="nav-link" href="#projects">
-        Projects
-      </a>
-      <a className="nav-link" href="#contact">
-        Contact
-      </a>
+      {navItems.map((item) => (
+        <a className="nav-link" href={item.href} key={item.href}>
+          {item.title}
+        </a>
+      ))}
     </nav>
   );
 }

@@ -1,0 +1,9 @@
+@import './../../styles/variables.scss';
+
+.tools {
+ background-color: $melon;
+
+ .down-arrow {
+   border-top-color: $nadeshiko-pink
+ }
+}
