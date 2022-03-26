@@ -8,11 +8,15 @@ import './projects.scss'
 
 export default function Projects() {
   return (
-    <section id="projects" className="projects">
+    <section className="projects" id="projects">
       <DownArrow />
-      <Typography variant="h1">Projects</Typography>
-      <AuctionableChange />
-      {projects.map((p, i) => <Project project={p} key={i}/>)}
+      <div className='inner-container'>
+        <Typography variant="h1">Projects</Typography>
+        <div className='cards-container'>
+          <AuctionableChange />
+          {projects.map((p, i) => <Project project={p} key={i}/>)}
+        </div>
+      </div>
     </section>
   );
 }

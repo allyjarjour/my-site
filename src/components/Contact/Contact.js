@@ -1,13 +1,75 @@
-import { Typography } from '@mui/material'
-import React from 'react'
-import DownArrow from '../DownArrow';
-import './contact.scss'
+import { Typography, Card, TextField, Button, Box } from "@mui/material";
+import React from "react";
+import sendEmail from "../../requests/sendEmail";
+import DownArrow from "../DownArrow";
+import "./contact.scss";
 
 export default function Contact() {
+  const [email, setEmail] = React.useState('')
+  const [name, setName] = React.useState('')
+  const [message, setMessage] = React.useState('')
+
+  const onChange = (e, setState) => {
+    setState(e.target.value);
+  }
+
   return (
-    <section id='contact' className='contact'>
+    <section id="contact" className="contact">
       <DownArrow />
-      <Typography variant="h1">Contact</Typography>
+      <div className="inner-container">
+        <Typography variant="h1" mb={1.5}>Contact</Typography>
+        <Card className="contact-form">
+          <Box
+            component="form"
+            sx={{
+              "& .MuiTextField-root": { m: 1, width: "25ch" },
+            }}
+            autoComplete="off"
+          >
+            <TextField
+              className="form-field"
+              id="standard-basic"
+              label="Full Name"
+              variant="standard"
+              onChange={(e) => onChange(e, setName)}
+              value={name}
+            />
+            <TextField
+              className="form-field"
+              id="standard-basic"
+              label="Email"
+              variant="standard"
+              value={email}
+              onChange={(e) => onChange(e, setEmail)}
+            />
+            <TextField
+              className="form-field"
+              multiline
+              maxRows={4}
+              value={message}
+              id="standard-basic"
+              label="Message"
+              variant="standard"
+              onChange={(e) => onChange(e, setMessage)}
+            />
+            <div className="send-btn-container">
+              <Button
+                variant="outlined"
+                onClick={(e) => {
+                  e.preventDefault();
+                  sendEmail(
+                    name,
+                    email,
+                    message
+                  );
+                }}
+              >
+                Send
+              </Button>
+            </div>
+          </Box>
+        </Card>
+      </div>
     </section>
   );
 }

@@ -2,8 +2,13 @@
 
 .tools {
  background-color: $melon;
+ text-align: center;
+
+ .inner-container {
+   padding: 30px;
+ }
 
  .down-arrow {
-   border-top-color: $nadeshiko-pink
+   border-top-color: $nadeshiko-pink;
  }
 }

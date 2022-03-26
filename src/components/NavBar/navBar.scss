@@ -15,5 +15,10 @@
     text-decoration: none;
     font-size: 1.75rem;
     font-weight: bold;
+
+    &:hover {
+      color: $melon;
+      text-transform:uppercase;
+    }
   }
 }

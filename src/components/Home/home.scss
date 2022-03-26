@@ -1,9 +1,49 @@
-@import './../../styles/variables.scss';
+@import "./../../styles/variables.scss";
 
 .home {
   background-color: $background;
 
+  .home-photo {
+    width: 50%;
+    margin: 0px 50px;
+    object-fit: contain;
+  }
+
+  .MuiTypography-h1 {
+    text-align: center;
+    padding-top: 30px;
+  }
+ 
+  .MuiTypography-body1 {
+    padding-top: 30px;
+    margin-left: 50px;
+    font-size: 3rem;
+  }
+
+  .inner-container {
+    padding: 30px 30px 60px;
+    display: flex;
+    justify-content: space-around;
+  }
+
   .down-arrow {
     border-top-color: $nav-bar;
+  }
+
+  @media only screen and (max-width: 1000px) {
+    .inner-container {
+      flex-direction: column;
+      padding: 0px 0px 20px;
+    }
+
+    .MuiTypography-body1 {
+      margin-left: 20px;
+      padding: 20px;
+    }
+
+    .home-photo {
+      width: 90%;
+      margin: 10px auto;
+    }
   }
 }

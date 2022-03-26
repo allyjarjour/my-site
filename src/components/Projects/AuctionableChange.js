@@ -6,13 +6,14 @@ export default function AuctionableChange() {
   return (
     <Project project={aChange}>
       <iframe
-        width="400"
-        height="250"
+        height={190}
+        width="100%"
+        style={{objectFit: 'contain'}}
         src="https://www.youtube.com/embed/b4ar5zmxTfk"
         title="YouTube video player"
-        frameborder="0"
+        frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
+        allowFullScreen
       ></iframe>
     </Project>
   );

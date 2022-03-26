@@ -1,8 +1,63 @@
 @import './../../styles/variables.scss';
 
 .contact {
-  background-color: #DCE5E5;
+  background-color: $grey;
+  text-align: center;
+
+  .MuiInputLabel-root.Mui-focused {
+    color: $nav-bar;
+  }
+
+  .MuiInput-root {
+    margin-top: 30px;
+  }
+
+  .css-17lr7y-MuiInputBase-root-MuiInput-root:after,
+  .css-19vbmcb-MuiInputBase-root-MuiInput-root:after{
+    border-bottom: 2px solid $nav-bar;
+  }
+
+  .contact-form {
+    width: 50%;
+    padding: 50px;
+    margin: 0 auto;
+
+    .form-field {
+      width: 90%;
+    }
+
+    .send-btn-container {
+      display: flex;
+      justify-content: end;
+      margin-top: 20px;
+    }
+  }
+  
+  .MuiButton-outlined {
+    border: 2px solid $telemagenta;
+    color: $telemagenta;
+    font-size: 1rem;
+    font-weight: bold;
+
+    &:hover {
+      border: 2px solid $telemagenta;
+      color: $telemagenta;
+      background-color: $melon;
+    }
+  }
+
+  .inner-container {
+    padding: 30px;
+  }
+
   .down-arrow {
     border-top-color: $telemagenta;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .contact-form {
+      width: 80%;
+      padding: 20px;
+    }
   }
 }
