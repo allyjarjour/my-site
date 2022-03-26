@@ -3,6 +3,9 @@ import React from "react";
 import sendEmail from "../../requests/sendEmail";
 import DownArrow from "../DownArrow";
 import "./contact.scss";
+import Anchor from '../Anchor';
+import Logo from "../Logo/Logo";
+import { socialLogos } from "../../data";
 
 export default function Contact() {
   const [email, setEmail] = React.useState('')
@@ -17,7 +20,9 @@ export default function Contact() {
     <section id="contact" className="contact">
       <DownArrow />
       <div className="inner-container">
-        <Typography variant="h1" mb={1.5}>Contact</Typography>
+        <Typography variant="h1" mb={1.5}>
+          Contact
+        </Typography>
         <Card className="contact-form">
           <Box
             component="form"
@@ -57,11 +62,7 @@ export default function Contact() {
                 variant="outlined"
                 onClick={(e) => {
                   e.preventDefault();
-                  sendEmail(
-                    name,
-                    email,
-                    message
-                  );
+                  sendEmail(name, email, message);
                 }}
               >
                 Send
@@ -69,6 +70,20 @@ export default function Contact() {
             </div>
           </Box>
         </Card>
+        <div className="social-icons">
+          <Anchor
+            href="https://github.com/allyjarjour"
+            ariaLabel="See my GitHub profile"
+          >
+            <Logo data={socialLogos.github} />
+          </Anchor>
+          <Anchor
+            href="https://www.linkedin.com/in/allyjarjour/"
+            ariaLabel="See my LinkedIn Profile"
+          >
+            <Logo data={socialLogos.linkedIn} />
+          </Anchor>
+        </div>
       </div>
     </section>
   );

@@ -1,6 +1,8 @@
 import { CardHeader, Typography } from '@mui/material';
 import React from 'react'
-import GitHubLogo from '../../GitHubLogo';
+import { socialLogos } from "../../../data";
+import Anchor from "../../Anchor";
+import Logo from '../../Logo';
 import './projectHeader.scss'
 
 export default function ProjectHeader({title, gitHubLink}) {
@@ -10,7 +12,9 @@ export default function ProjectHeader({title, gitHubLink}) {
       title={
         <div className="title">
           <Typography variant="card-title">{title}</Typography>
-          <GitHubLogo href={gitHubLink} />
+          <Anchor href={gitHubLink} ariaLabel="See project on GitHub">
+            <Logo data={socialLogos.github} />
+          </Anchor>
         </div>
       }
     />

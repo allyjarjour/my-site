@@ -1,5 +1,5 @@
 import React from 'react'
-import { aChange } from '../../data/projects';
+import { aChange } from '../../data';
 import Project from './Project';
 
 export default function AuctionableChange() {

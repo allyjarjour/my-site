@@ -1,6 +1,6 @@
 import { Typography} from '@mui/material'
 import React from 'react'
-import projects from '../../data/projects';
+import projects from '../../data';
 import DownArrow from '../DownArrow';
 import AuctionableChange from './AuctionableChange';
 import Project from './Project';

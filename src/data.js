@@ -61,6 +61,17 @@ export const logos = {
   },
 };
 
+export const socialLogos = {
+  github: {
+    title: "GitHub",
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+  },
+  linkedIn: {
+    title: "LinkedIn",
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg",
+  },
+};
+
 export const aChange = {
   gitHubLink: "https://github.com/Auctionable-Change",
   description: `A mobile app for buying and selling goods secondhand to support a

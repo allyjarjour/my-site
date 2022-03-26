@@ -2,7 +2,7 @@ import { Typography, ImageList, ImageListItem } from "@mui/material";
 import React from "react";
 import "./tools.scss";
 import DownArrow from "./../DownArrow";
-import { logos } from "../../data/projects";
+import { logos } from "../../data";
 import { isMobile } from "react-device-detect";
 
 export default function Tools() {

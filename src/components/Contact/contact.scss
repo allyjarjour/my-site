@@ -4,6 +4,14 @@
   background-color: $grey;
   text-align: center;
 
+  .social-icons {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    width: 100px;
+    margin: 0 auto;
+  }
+
   .MuiInputLabel-root.Mui-focused {
     color: $nav-bar;
   }
