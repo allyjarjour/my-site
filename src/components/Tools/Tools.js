@@ -8,7 +8,6 @@ import { isMobile } from "react-device-detect";
 export default function Tools() {
   const toolKeys = Object.keys(logos);
   const tools = toolKeys.map(k => logos[k])
-  console.log(toolKeys);
   return (
     <section id="tools" className="tools">
       <DownArrow />
