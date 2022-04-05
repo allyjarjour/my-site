@@ -74,7 +74,7 @@ export const socialLogos = {
 
 export const aChange = {
   gitHubLink: "https://github.com/Auctionable-Change",
-  description: `A mobile app for buying and selling goods secondhand to support a
+  description: `A mobile app for buying and selling goods secondhand to support
           charities of your choosing.`,
   title: "Auctionable Change",
   tech: [
