@@ -1,20 +1,61 @@
-import { Typography, Card, TextField, Button, Box } from "@mui/material";
+import { Typography, Card, TextField, Button, Box, Alert } from "@mui/material";
 import React from "react";
 import sendEmail from "../../requests/sendEmail";
 import DownArrow from "../DownArrow";
 import "./contact.scss";
-import Anchor from '../Anchor';
+import Anchor from "../Anchor";
 import Logo from "../Logo/Logo";
 import { socialLogos } from "../../data";
 
+const FeedbackEnum = {
+  Success: "success",
+  Error: "error",
+  None: "none",
+};
+
 export default function Contact() {
-  const [email, setEmail] = React.useState('')
-  const [name, setName] = React.useState('')
-  const [message, setMessage] = React.useState('')
+  const [email, setEmail] = React.useState("");
+  const [name, setName] = React.useState("");
+  const [message, setMessage] = React.useState("");
+  const [feedback, setFeedback] = React.useState(FeedbackEnum.None);
 
   const onChange = (e, setState) => {
     setState(e.target.value);
-  }
+  };
+
+  const onSuccess = () => {
+    setEmail("");
+    setName("");
+    setMessage("");
+    setFeedback(FeedbackEnum.Success);
+  };
+
+  const onError = () => {
+    setFeedback(FeedbackEnum.Error);
+  };
+
+  const resetFeedback = () => {
+    setFeedback(FeedbackEnum.None);
+  };
+
+  const getFeedback = () => {
+    switch (feedback) {
+      case FeedbackEnum.Success:
+        return (
+          <Alert onClose={resetFeedback} severity="success">
+            Message Sent!
+          </Alert>
+        );
+      case FeedbackEnum.Error:
+        return (
+          <Alert onClose={resetFeedback} severity="error">
+            There was an error with your request.
+          </Alert>
+        );
+      default:
+        return <React.Fragment />;
+    }
+  };
 
   return (
     <section id="contact" className="contact">
@@ -57,12 +98,14 @@ export default function Contact() {
               variant="standard"
               onChange={(e) => onChange(e, setMessage)}
             />
+            {getFeedback()}
             <div className="send-btn-container">
               <Button
                 variant="outlined"
+                disabled={!email || !message || !name}
                 onClick={(e) => {
                   e.preventDefault();
-                  sendEmail(name, email, message);
+                  sendEmail(name, email, message, onSuccess, onError);
                 }}
               >
                 Send
