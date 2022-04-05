@@ -12,17 +12,8 @@
     margin: 0 auto;
   }
 
-  .MuiInputLabel-root.Mui-focused {
-    color: $nav-bar;
-  }
-
   .MuiInput-root {
     margin-top: 30px;
-  }
-
-  .css-17lr7y-MuiInputBase-root-MuiInput-root:after,
-  .css-19vbmcb-MuiInputBase-root-MuiInput-root:after{
-    border-bottom: 2px solid $nav-bar;
   }
 
   .contact-form {
