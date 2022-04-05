@@ -101,6 +101,8 @@ const projects = [
     description: `A collection of my projects and a bit about me.`,
     title: "My Portfolio (this site!)",
     tech: [logos.react, logos.sass, logos.mui],
+    imageSrc: "https://media.giphy.com/media/d2mhyPY5HTehkMGUOE/giphy.gif",
+    gitHubLink: "https://github.com/allyjarjour/portfolio",
   },
   {
     gitHubLink: "https://github.com/allyjarjour/muse",
@@ -108,12 +110,7 @@ const projects = [
     culture, medium or by what is currently on display at the Met museum.
     Users are able to favorite artwork to build their own curated collection.`,
     title: "MUSE",
-    tech: [
-      logos.react,
-      logos.sass,
-      logos.reactTestingLibrary,
-      logos.jest,
-    ],
+    tech: [logos.react, logos.sass, logos.reactTestingLibrary, logos.jest],
     imageSrc: "https://media.giphy.com/media/CkhERKssTijHSOu4NI/giphy.gif",
   },
   {
