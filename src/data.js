@@ -91,11 +91,10 @@ const projects = [
   {
     gitHubLink: "https://github.com/allyjarjour/dailystandup",
     description: `A way to organize my daily standup summaries. 
-    User authentication / OAuth through GutHub and mobile improvements
-    are coming soon.`,
+    User authentication / OAuth through GitHub. More enhancements coming soon.`,
     title: "Standup Summary",
     tech: [logos.react, logos.nextJs, logos.mongoDb, logos.typescript],
-    imageSrc: "https://media.giphy.com/media/KTlqeY67TgDK91mWzW/giphy.gif",
+    imageSrc: "https://media.giphy.com/media/YpjyLGhsDfjGMjcsim/giphy.gif",
   },
   {
     description: `A collection of my projects and a bit about me.`,
