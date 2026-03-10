@@ -15,6 +15,7 @@
     padding: calc(1.5 * var(--r));
     margin-right: 50px;
     background: $telemagenta;
+    margin-bottom: 20px;
     mask:
       linear-gradient(#000 0 0) no-repeat 50% / calc(100% - 2 * var(--r)) calc(100% - 2 * var(--r)),
       radial-gradient(farthest-side, #000 97%, #0000) 0 0 / calc(2 * var(--r)) calc(2 * var(--r)) round;
@@ -52,7 +53,8 @@
 
       .profile-pic-frame {
         margin: 0 auto;
-        max-width: 80%;
+        max-width: 75%;
+        margin-bottom: 0px;
       }
 
       .about-summary {
