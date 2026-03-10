@@ -1,14 +1,14 @@
 @import './../../styles/variables.scss';
 
 .tools {
- background-color: $melon;
- text-align: center;
+  background-color: $melon;
+  text-align: center;
 
- .inner-container {
-   padding: 30px;
- }
+  .inner-container {
+    padding: 30px;
+  }
 
- .down-arrow {
-   border-top-color: $nadeshiko-pink;
- }
+  .down-arrow {
+    border-top-color: $nadeshiko-pink;
+  }
 }

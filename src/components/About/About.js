@@ -1,19 +1,18 @@
 import { Typography } from '@mui/material'
 import React from 'react'
-import DownArrow from '../DownArrow';
 import './about.scss';
+
+const summary = `I'm Ally, a frontend software engineer based in beautiful St. Augustine, FL — the nation's oldest city. After living in Spain, Colorado, and South Carolina, my partner and I now call a little beach bungalow home, where we share our days with Rosa, our rambunctious labradoodle.
+When I'm not at my desk, you'll find me hunting down the next travel destination, experimenting with new recipes in the kitchen, sewing, or finding any excuse to get outside and stay active.`
 
 export default function About() {
   return (
     <section id='about' className='about'>
-      <DownArrow />
       <Typography variant="h1">About Me</Typography>
       <div className='inner-container'>
-        <img className='profile-pic' src='./profile_pic.jpg' alt='Head shot of Ally Jarjour at the beach.'/>
-        <Typography variant='body1' className='about-summary'>I'm a Frontend Developer currently residing in Charleston, South Carolina.
-          Before pivoting to software development in 2019, I worked in public relations and marketing in the
-          outdoor industry. When I'm not behind the computer, I'm usually on my bike, in the water or venturing
-          to the mountains. </Typography>
+        <img className='profile-pic' src='./me_in_macon.jpg' alt='Head shot of Ally Jarjour at the beach.' />
+        <Typography variant='body1' className='about-summary'>
+          {summary}</Typography>
       </div>
     </section>
   );

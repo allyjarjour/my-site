@@ -1,38 +1,39 @@
 @import "./../../styles/variables.scss";
 
-.home {
-  background-color: $background;
+/* Google Fonts */
+@import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);
+@import url('https://fonts.googleapis.com/css2?family=Caprasimo&display=swap');
 
-  .home-photo {
-    width: 50%;
-    margin: 0px 50px;
-    object-fit: contain;
-  }
+.home {
+  position: relative;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
   .MuiTypography-h1 {
+    position: relative;
+    z-index: 1;
     text-align: center;
-    padding-top: 30px;
+    padding-top: 30%;
+    color: $nav-bar;
+    font-family: 'Caprasimo', cursive;
   }
- 
+
   .MuiTypography-body1 {
     padding-top: 30px;
     margin-left: 50px;
     font-size: 3rem;
   }
 
-  .inner-container {
-    padding: 30px 30px 60px;
-    display: flex;
-    justify-content: space-around;
-  }
-
   .down-arrow {
+    position: relative;
+    z-index: 1;
     border-top-color: $nav-bar;
   }
 
   @media only screen and (max-width: 1000px) {
     .inner-container {
-      flex-direction: column;
       padding: 0px 0px 20px;
     }
 
@@ -41,9 +42,8 @@
       padding: 20px;
     }
 
-    .home-photo {
-      width: 90%;
-      margin: 10px auto;
+    .MuiTypography-h1 {
+      padding-top: 50%;
     }
   }
 }

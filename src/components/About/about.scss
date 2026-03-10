@@ -1,11 +1,12 @@
 @import './../../styles/variables.scss';
 
 .about {
+  margin-top: -80px;
   background-color: $nadeshiko-pink;
-
-  .down-arrow{
-    border-top-color: $background;
-  }
+  z-index: 2;
+  position: relative;
+  /* Triangle cutout matches DownArrow: 100px base, 50px height (border-left/right 50px, border-top 50px) */
+  clip-path: polygon(0 0, calc(50% - 50px) 0, 50% 50px, calc(50% + 50px) 0, 100% 0, 100% 100%, 0 100%);
 
   .profile-pic {
     height: 300px;
@@ -16,7 +17,7 @@
 
   .MuiTypography-h1 {
     text-align: center;
-    padding-top: 30px;
+    padding-top: 80px;
   }
 
   .inner-container {
@@ -27,6 +28,7 @@
 
   .about-summary {
     width: 60%;
+    padding-bottom: 20px;
   }
 
   @media only screen and (max-width: 600px) {

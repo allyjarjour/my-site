@@ -9,14 +9,13 @@ export default function Home() {
     <section
       className="home"
       id="home"
-      style={{ paddingTop: isMobile ? 0 : 100 }}
+      style={{
+        paddingTop: isMobile ? 0 : 100,
+        backgroundImage: "url('./sunset.jpg')",
+      }}
     >
       {!isMobile && <DownArrow className="top-arrow" />}
-      <Typography variant="h1">Welcome</Typography>
-      <div className="inner-container">
-        <img className='home-photo' src="./Cannon_Beach.jpg" alt="Boulders at Cannon Beach, Oregon"/>
-        <Typography variant="body1">I'm Ally, a software developer by trade and an explorer by heart. Thanks for visiting my site.</Typography>
-      </div>
+      <Typography variant="h1">Ally Jarjour</Typography>
     </section>
   );
 }

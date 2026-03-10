@@ -4,10 +4,6 @@
   background-color: $telemagenta;
   text-align: center;
 
-  .MuiTypography-h1 {
-    color: $melon;
-  }
-
   .inner-container {
     padding: 30px;
   }
@@ -21,9 +17,9 @@
     justify-content: space-around;
   }
 
-   .down-arrow {
-   border-top-color: $melon;
- }
+  .down-arrow {
+    border-top-color: $melon;
+  }
 
   @media only screen and (max-width: 600px) {
     .cards-container {
