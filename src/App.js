@@ -15,7 +15,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className="app">
-        {!isMobile && <NavBar />}
+        <NavBar />
         <Home />
         <About />
         <Tools />
