@@ -10,7 +10,9 @@ export default function About() {
     <section id='about' className='about'>
       <Typography variant="h1">About Me</Typography>
       <div className='inner-container'>
-        <img className='profile-pic' src='./me_in_macon.jpg' alt='Head shot of Ally Jarjour at the beach.' />
+        <div className="profile-pic-frame">
+          <img className="profile-pic" src="./me_in_macon.jpg" alt="Head shot of Ally Jarjour at the beach." />
+        </div>
         <Typography variant='body1' className='about-summary'>
           {summary}</Typography>
       </div>

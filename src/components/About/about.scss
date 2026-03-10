@@ -8,11 +8,26 @@
   /* Triangle cutout matches DownArrow: 100px base, 50px height (border-left/right 50px, border-top 50px) */
   clip-path: polygon(0 0, calc(50% - 50px) 0, 50% 50px, calc(50% + 50px) 0, 100% 0, 100% 100%, 0 100%);
 
-  .profile-pic {
-    height: 300px;
-    border-radius: 50%;
+  .profile-pic-frame {
+    --r: 25px;
+    width: 375px;
+    height: 375px;
+    padding: calc(1.5 * var(--r));
     margin-right: 50px;
-    object-fit: contain;
+    background: $telemagenta;
+    mask:
+      linear-gradient(#000 0 0) no-repeat 50% / calc(100% - 2 * var(--r)) calc(100% - 2 * var(--r)),
+      radial-gradient(farthest-side, #000 97%, #0000) 0 0 / calc(2 * var(--r)) calc(2 * var(--r)) round;
+    -webkit-mask:
+      linear-gradient(#000 0 0) no-repeat 50% / calc(100% - 2 * var(--r)) calc(100% - 2 * var(--r)),
+      radial-gradient(farthest-side, #000 97%, #0000) 0 0 / calc(2 * var(--r)) calc(2 * var(--r)) round;
+  }
+
+  .profile-pic {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .MuiTypography-h1 {
@@ -35,8 +50,9 @@
     .inner-container {
       flex-direction: column;
 
-      .profile-pic {
+      .profile-pic-frame {
         margin: 0 auto;
+        max-width: 80%;
       }
 
       .about-summary {
