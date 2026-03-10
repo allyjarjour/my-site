@@ -59,6 +59,18 @@ export const logos = {
     title: "Typescript",
     src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
   },
+  tanstack: {
+    title: "Tanstack",
+    src: "./tanstack.png",
+  },
+  cypress: {
+    title: "Cypress",
+    src: "./cypress-1.svg",
+  },
+  tailwind: {
+    title: "Tailwind",
+    src: "./tailwind.png",
+  },
 };
 
 export const socialLogos = {
