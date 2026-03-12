@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./navBar.scss";
 
 const navItems = [
@@ -17,7 +17,7 @@ export default function NavBar() {
 	return (
 		<nav className={`nav-bar ${menuOpen ? "nav-bar--open" : ""}`}>
 			<a href="#home" className="nav-bar__logo" aria-label="Home">
-				<span className="nav-bar__logo-img" role="img" aria-hidden="true" />
+				<span className="nav-bar__logo-img" role="img" />
 			</a>
 			<button
 				type="button"

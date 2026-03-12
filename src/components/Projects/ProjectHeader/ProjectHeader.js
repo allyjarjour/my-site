@@ -1,5 +1,4 @@
 import { CardHeader, Typography } from "@mui/material";
-import React from "react";
 import { socialLogos } from "../../../data";
 import Anchor from "../../Anchor";
 import Logo from "../../Logo";

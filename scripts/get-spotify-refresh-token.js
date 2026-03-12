@@ -14,10 +14,10 @@
  * 5. The script will print SPOTIFY_REFRESH_TOKEN=... — add that line to functions/.env
  */
 
-import { createServer } from "http";
-import { readFileSync, existsSync } from "fs";
-import { fileURLToPath } from "url";
-import { dirname, join } from "path";
+import { createServer } from "node:http";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+import { readFileSync, existsSync } from "node:fs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const rootDir = join(__dirname, "..");
@@ -120,7 +120,7 @@ const server = createServer(async (req, res) => {
 	);
 
 	console.log("\nAdd this line to your functions/.env file:\n");
-	console.log("SPOTIFY_REFRESH_TOKEN=" + refreshToken);
+	console.log(`SPOTIFY_REFRESH_TOKEN=${refreshToken}`);
 	console.log("\n");
 	server.close();
 	process.exit(0);

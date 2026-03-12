@@ -5,7 +5,6 @@ import {
 	CardActions,
 	CardMedia,
 } from "@mui/material";
-import React from "react";
 import Logo from "../../Logo";
 import ProjectHeader from "../ProjectHeader";
 import "./project.scss";
@@ -28,8 +27,8 @@ export default function Project({ project, children }) {
 				<Typography variant="body2">{description}</Typography>
 			</CardContent>
 			<CardActions className="project-tech">
-				{tech.map((logo, i) => (
-					<Logo key={i} data={logo} />
+				{tech.map((logo) => (
+					<Logo key={logo.title} data={logo} />
 				))}
 			</CardActions>
 		</Card>

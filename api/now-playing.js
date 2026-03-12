@@ -1,5 +1,5 @@
 /**
- * Vercel serverless function: GET /api/now-playing
+ * Serverless function: GET /api/now-playing
  * Returns current Spotify playback or { playing: false }.
  * Requires: SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_REFRESH_TOKEN
  */

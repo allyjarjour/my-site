@@ -1,5 +1,4 @@
 import { Typography, ImageList, ImageListItem } from "@mui/material";
-import React from "react";
 import "./tools.scss";
 import DownArrow from "./../DownArrow";
 import { logos } from "../../data";
@@ -18,8 +17,8 @@ export default function Tools() {
 					cols={isMobile ? 3 : 4}
 					rowHeight={100}
 				>
-					{tools.map((tool, i) => (
-						<ImageListItem key={i} sx={{ margin: "0 auto" }}>
+					{tools.map((tool) => (
+						<ImageListItem key={tool.title} sx={{ margin: "0 auto" }}>
 							<img
 								title={tool.title}
 								style={{ width: "75px", objectFit: "contain" }}

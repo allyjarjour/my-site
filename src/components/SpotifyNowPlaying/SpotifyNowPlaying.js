@@ -1,11 +1,4 @@
-import {
-	Typography,
-	Card,
-	Box,
-	CardContent,
-	IconButton,
-	CardMedia,
-} from "@mui/material";
+import { Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import "./spotifyNowPlaying.scss";
 
@@ -30,9 +23,7 @@ function getApiUrl() {
 
 export default function SpotifyNowPlaying() {
 	const [data, setData] = useState(null);
-	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
-	const [errorMessage, setErrorMessage] = useState(null);
 
 	const fetchNowPlaying = React.useCallback(async () => {
 		const url = getApiUrl();
@@ -42,20 +33,13 @@ export default function SpotifyNowPlaying() {
 			if (!res.ok) {
 				setData({ playing: false });
 				setError(true);
-				setErrorMessage(json.error || res.statusText);
 				return;
 			}
 			setData(json);
 			setError(false);
-			setErrorMessage(null);
-		} catch (err) {
+		} catch (_err) {
 			setData({ playing: false });
 			setError(true);
-			setErrorMessage(
-				process.env.NODE_ENV === "development" ? err.message : null,
-			);
-		} finally {
-			setLoading(false);
 		}
 	}, []);
 

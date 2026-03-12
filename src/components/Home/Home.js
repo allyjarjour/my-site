@@ -1,5 +1,4 @@
 import { Typography } from "@mui/material";
-import React from "react";
 import DownArrow from "../DownArrow";
 import SpotifyNowPlaying from "../SpotifyNowPlaying";
 import "./home.scss";

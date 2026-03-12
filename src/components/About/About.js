@@ -1,5 +1,4 @@
 import { Typography } from "@mui/material";
-import React from "react";
 import "./about.scss";
 
 const summary = `I'm Ally, a frontend software engineer based in beautiful St. Augustine, FL — the nation's oldest city. After living in Spain, Colorado, and South Carolina, my partner and I now call a little beach bungalow home, where we share our days with Rosa, our rambunctious labradoodle.
