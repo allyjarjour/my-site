@@ -6,12 +6,19 @@ const POLL_INTERVAL_MS = 30000;
 
 function getApiUrl() {
   const base = process.env.REACT_APP_NOW_PLAYING_API;
+  const search = typeof window !== 'undefined' ? window.location.search : '';
+  const forceRecent = search.includes('spotifyRecent=1');
+
+  const appendMode = (url) => {
+    if (!forceRecent) return url;
+    return url.includes('?') ? `${url}&mode=recent` : `${url}?mode=recent`;
+  };
   // Same origin (e.g. Firebase Hosting rewrite to /api/now-playing)
-  if (!base) return '/api/now-playing';
+  if (!base) return appendMode('/api/now-playing');
   const normalized = base.replace(/\/$/, '');
   // Full URL (e.g. Firebase emulator: .../nowPlaying)
   if (/now[-_]?playing/i.test(normalized)) return normalized;
-  return `${normalized}/now-playing`;
+  return appendMode(`${normalized}/now-playing`);
 }
 
 export default function SpotifyNowPlaying() {
@@ -57,7 +64,7 @@ export default function SpotifyNowPlaying() {
     return null;
   }
 
-  const { track, artists, albumArtUrl, trackUrl } = data;
+  const { track, artists, albumArtUrl, trackUrl, isRecent } = data;
 
   return (
     <div className="spotify-now-playing">
@@ -75,7 +82,7 @@ export default function SpotifyNowPlaying() {
       <div className="spotify-now-playing__meta">
         <div className="spotify-now-playing__meta-header">
           <Typography variant="overline" className="spotify-now-playing__label">
-            Now playing
+            {isRecent ? 'Recently played' : 'Now playing'}
           </Typography>
           <img
             src="/Spotify_logo.png"

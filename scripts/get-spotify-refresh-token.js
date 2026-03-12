@@ -54,7 +54,7 @@ if (!clientId || !clientSecret) {
 }
 
 const redirectUri = 'http://127.0.0.1:8888/callback';
-const scope = 'user-read-currently-playing';
+const scope = 'user-read-currently-playing user-read-recently-played';
 const authUrl =
   'https://accounts.spotify.com/authorize?' +
   new URLSearchParams({

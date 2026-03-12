@@ -6,6 +6,7 @@
 
 const TOKEN_URL = 'https://accounts.spotify.com/api/token';
 const NOW_PLAYING_URL = 'https://api.spotify.com/v1/me/player/currently-playing';
+const RECENTLY_PLAYED_URL = 'https://api.spotify.com/v1/me/player/recently-played?limit=1';
 
 async function getAccessToken() {
   const clientId = process.env.SPOTIFY_CLIENT_ID;
@@ -39,7 +40,7 @@ async function getAccessToken() {
 }
 
 async function getNowPlaying(accessToken) {
-  const res = await fetch(NOW_PLAYING_URL, {
+  const res = await fetch(`${NOW_PLAYING_URL}?additional_types=track,episode`, {
     headers: { 'Authorization': `Bearer ${accessToken}` },
   });
 
@@ -54,8 +55,19 @@ async function getNowPlaying(accessToken) {
   return res.json();
 }
 
-function formatTrack(data) {
-  const item = data.item;
+async function getRecentlyPlayed(accessToken) {
+  const res = await fetch(RECENTLY_PLAYED_URL, {
+    headers: { 'Authorization': `Bearer ${accessToken}` },
+  });
+
+  if (!res.ok) {
+    throw new Error(`Spotify recent API error: ${res.status}`);
+  }
+
+  return res.json();
+}
+
+function formatTrack(item, isRecent = false) {
   if (!item) return null;
   const artists = item.artists.map((a) => a.name).join(', ');
   const albumArt = item.album?.images?.[0]?.url || null;
@@ -65,6 +77,7 @@ function formatTrack(data) {
     artists,
     albumArtUrl: albumArt,
     trackUrl,
+    isRecent,
   };
 }
 
@@ -78,15 +91,33 @@ export default async function handler(req, res) {
   }
 
   try {
-    const accessToken = await getAccessToken();
-    const nowPlaying = await getNowPlaying(accessToken);
+    const mode = req.query?.mode;
 
-    if (!nowPlaying) {
-      res.status(200).json({ playing: false });
-      return;
+    const accessToken = await getAccessToken();
+    let payload = null;
+
+    if (mode === 'recent') {
+      const recent = await getRecentlyPlayed(accessToken);
+      const recentItem = recent?.items?.[0]?.track;
+      if (recentItem) {
+        payload = formatTrack(recentItem, true);
+      }
+    } else {
+      const nowPlaying = await getNowPlaying(accessToken);
+
+      if (nowPlaying?.item) {
+        payload = formatTrack(nowPlaying.item, false);
+      }
+
+      if (!payload) {
+        const recent = await getRecentlyPlayed(accessToken);
+        const recentItem = recent?.items?.[0]?.track;
+        if (recentItem) {
+          payload = formatTrack(recentItem, true);
+        }
+      }
     }
 
-    const payload = formatTrack(nowPlaying);
     if (!payload) {
       res.status(200).json({ playing: false });
       return;

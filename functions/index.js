@@ -14,6 +14,7 @@ const spotifyRefreshToken = defineString('SPOTIFY_REFRESH_TOKEN');
 
 const TOKEN_URL = 'https://accounts.spotify.com/api/token';
 const NOW_PLAYING_URL = 'https://api.spotify.com/v1/me/player/currently-playing';
+const RECENTLY_PLAYED_URL = 'https://api.spotify.com/v1/me/player/recently-played?limit=1';
 
 async function getAccessToken() {
   const clientId = spotifyClientId.value();
@@ -62,8 +63,19 @@ async function getNowPlaying(accessToken) {
   return res.json();
 }
 
-function formatTrack(data) {
-  const item = data.item;
+async function getRecentlyPlayed(accessToken) {
+  const res = await fetch(RECENTLY_PLAYED_URL, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
+
+  if (!res.ok) {
+    throw new Error(`Spotify recent API error: ${res.status}`);
+  }
+
+  return res.json();
+}
+
+function formatTrack(item, isRecent = false) {
   if (!item) return null;
   const isEpisode = item.type === 'episode';
   const artists = isEpisode
@@ -78,6 +90,7 @@ function formatTrack(data) {
     artists,
     albumArtUrl: albumArt,
     trackUrl,
+    isRecent,
   };
 }
 
@@ -92,15 +105,43 @@ export const nowPlaying = onRequest(
     }
 
     try {
+      const mode =
+        req.query?.mode ??
+        new URL(req.url || '', 'http://localhost').searchParams.get('mode');
       const accessToken = await getAccessToken();
-      const nowPlayingData = await getNowPlaying(accessToken);
+      let payload = null;
 
-      if (!nowPlayingData) {
-        res.status(200).json({ playing: false });
-        return;
+      if (mode === 'recent') {
+        try {
+          const recentData = await getRecentlyPlayed(accessToken);
+          const recentItem = recentData?.items?.[0]?.track;
+          if (recentItem) {
+            payload = formatTrack(recentItem, true);
+          }
+        } catch (recentErr) {
+          console.error('recently-played error:', recentErr.message);
+          res.status(200).json({
+            playing: false,
+            error: process.env.FUNCTIONS_EMULATOR === 'true' ? recentErr.message : undefined,
+          });
+          return;
+        }
+      } else {
+        const nowPlayingData = await getNowPlaying(accessToken);
+
+        if (nowPlayingData?.item) {
+          payload = formatTrack(nowPlayingData.item, false);
+        }
+
+        if (!payload) {
+          const recentData = await getRecentlyPlayed(accessToken);
+          const recentItem = recentData?.items?.[0]?.track;
+          if (recentItem) {
+            payload = formatTrack(recentItem, true);
+          }
+        }
       }
 
-      const payload = formatTrack(nowPlayingData);
       if (!payload) {
         res.status(200).json({ playing: false });
         return;
