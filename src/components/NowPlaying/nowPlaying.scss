@@ -1,0 +1,20 @@
+@import '../../styles/variables.scss';
+
+.now-playing {
+  background-color: $grey;
+  padding: 80px 24px 60px;
+  position: relative;
+  z-index: 2;
+
+  &__title {
+    text-align: center;
+    padding-bottom: 2rem;
+  }
+
+  &__widget {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 120px;
+  }
+}

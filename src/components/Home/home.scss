@@ -11,11 +11,16 @@
   background-position: center;
   background-repeat: no-repeat;
 
-  .MuiTypography-h1 {
-    position: relative;
+  &__now-playing {
+    position: absolute;
+    bottom: 7rem;
+    right: 2rem;
     z-index: 1;
+  }
+
+  .MuiTypography-h1 {
     text-align: center;
-    padding-top: 30%;
+    padding-top: 30vh;
     color: $nav-bar;
     font-family: 'Caprasimo', cursive;
   }
@@ -32,18 +37,10 @@
     border-top-color: $nav-bar;
   }
 
-  @media only screen and (max-width: 1000px) {
-    .inner-container {
-      padding: 0px 0px 20px;
-    }
-
-    .MuiTypography-body1 {
-      margin-left: 20px;
-      padding: 20px;
-    }
-
-    .MuiTypography-h1 {
-      padding-top: 50%;
+  @media only screen and (max-width: 500px) {
+    .home__now-playing {
+      right: 1rem;
+      left: 1rem;
     }
   }
 }

@@ -1,0 +1,12 @@
+{
+  "name": "my-site-functions",
+  "description": "Spotify now-playing API for portfolio",
+  "main": "index.js",
+  "type": "module",
+  "engines": {
+    "node": "18"
+  },
+  "dependencies": {
+    "firebase-functions": "^6.3.0"
+  }
+}
