@@ -9,18 +9,18 @@ import { ThemeProvider } from "@emotion/react";
 import theme from "./styles/theme";
 
 function App() {
-  return (
-    <ThemeProvider theme={theme}>
-      <div className="app">
-        <NavBar />
-        <Home />
-        <About />
-        <Tools />
-        <Projects />
-        <Contact />
-      </div>
-    </ThemeProvider>
-  );
+	return (
+		<ThemeProvider theme={theme}>
+			<div className="app">
+				<NavBar />
+				<Home />
+				<About />
+				<Tools />
+				<Projects />
+				<Contact />
+			</div>
+		</ThemeProvider>
+	);
 }
 
 export default App;

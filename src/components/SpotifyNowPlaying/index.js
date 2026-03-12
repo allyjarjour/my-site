@@ -1,1 +1,1 @@
-export { default } from './SpotifyNowPlaying';
+export { default } from "./SpotifyNowPlaying";
