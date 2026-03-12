@@ -16,22 +16,6 @@
     box-shadow: 0 14px 36px rgba(0, 0, 0, 0.24);
   }
 
-
-  &--loading,
-  &--error,
-  &--idle {
-    justify-content: center;
-    flex-direction: column;
-    min-height: 64px;
-  }
-
-  &__debug {
-    margin-top: 0.5rem;
-    font-size: 0.7rem;
-    opacity: 0.8;
-    word-break: break-word;
-  }
-
   &__art {
     flex: 0 0 100px;
     overflow: hidden;

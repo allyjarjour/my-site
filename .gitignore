@@ -30,3 +30,4 @@ yarn-error.log*
 functions/.env
 functions/.env.*
 functions/node_modules
+firebase-debug.log
