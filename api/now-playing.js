@@ -1,7 +1,6 @@
 /**
- * Serverless function: GET /api/now-playing
- * Returns current Spotify playback or { playing: false }.
- * Requires: SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_REFRESH_TOKEN
+ * Vercel serverless: GET /api/now-playing
+ * Requires SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_REFRESH_TOKEN in Vercel env.
  */
 
 const TOKEN_URL = "https://accounts.spotify.com/api/token";
@@ -71,9 +70,14 @@ async function getRecentlyPlayed(accessToken) {
 
 function formatTrack(item, isRecent = false) {
 	if (!item) return null;
-	const artists = item.artists.map((a) => a.name).join(", ");
-	const albumArt = item.album?.images?.[0]?.url || null;
-	const trackUrl = item.external_urls?.spotify || null;
+	const isEpisode = item.type === "episode";
+	const artists = isEpisode
+		? (item.show?.name ?? "Podcast")
+		: (item.artists?.map((a) => a.name).join(", ") ?? "");
+	const albumArt = isEpisode
+		? (item.images?.[0]?.url ?? item.show?.images?.[0]?.url ?? null)
+		: (item.album?.images?.[0]?.url ?? null);
+	const trackUrl = item.external_urls?.spotify ?? null;
 	return {
 		track: item.name,
 		artists,
@@ -94,26 +98,35 @@ export default async function handler(req, res) {
 
 	try {
 		const mode = req.query?.mode;
-
 		const accessToken = await getAccessToken();
 		let payload = null;
 
 		if (mode === "recent") {
-			const recent = await getRecentlyPlayed(accessToken);
-			const recentItem = recent?.items?.[0]?.track;
-			if (recentItem) {
-				payload = formatTrack(recentItem, true);
+			try {
+				const recentData = await getRecentlyPlayed(accessToken);
+				const recentItem = recentData?.items?.[0]?.track;
+				if (recentItem) {
+					payload = formatTrack(recentItem, true);
+				}
+			} catch (recentErr) {
+				console.error("recently-played error:", recentErr.message);
+				res.status(200).json({
+					playing: false,
+					error:
+						process.env.NODE_ENV === "development" ? recentErr.message : undefined,
+				});
+				return;
 			}
 		} else {
-			const nowPlaying = await getNowPlaying(accessToken);
+			const nowPlayingData = await getNowPlaying(accessToken);
 
-			if (nowPlaying?.item) {
-				payload = formatTrack(nowPlaying.item, false);
+			if (nowPlayingData?.item) {
+				payload = formatTrack(nowPlayingData.item, false);
 			}
 
 			if (!payload) {
-				const recent = await getRecentlyPlayed(accessToken);
-				const recentItem = recent?.items?.[0]?.track;
+				const recentData = await getRecentlyPlayed(accessToken);
+				const recentItem = recentData?.items?.[0]?.track;
 				if (recentItem) {
 					payload = formatTrack(recentItem, true);
 				}

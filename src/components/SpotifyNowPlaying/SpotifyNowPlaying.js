@@ -13,11 +13,12 @@ function getApiUrl() {
 		if (!forceRecent) return url;
 		return url.includes("?") ? `${url}&mode=recent` : `${url}?mode=recent`;
 	};
-	// Same origin (e.g. Firebase Hosting rewrite to /api/now-playing)
+
+	// Local dev: Vite proxies /api/now-playing → Vercel
 	if (!base) return appendMode("/api/now-playing");
+
 	const normalized = base.replace(/\/$/, "");
-	// Full URL (e.g. Firebase emulator: .../nowPlaying)
-	if (/now[-_]?playing/i.test(normalized)) return normalized;
+	if (/now[-_]?playing/i.test(normalized)) return appendMode(normalized);
 	return appendMode(`${normalized}/now-playing`);
 }
 

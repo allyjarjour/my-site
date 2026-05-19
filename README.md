@@ -1,4 +1,11 @@
-My personal website — React + Vite, hosted on [Firebase Hosting](https://firebase.google.com/docs/hosting) (project `ally-jarjour`).
+My personal website — React + Vite.
+
+| Part | Host | Deploys on push to `main` |
+|------|------|---------------------------|
+| Site (UI) | [Firebase Hosting](https://firebase.google.com/docs/hosting) (`ally-jarjour`) | Yes — [GitHub Actions](.github/workflows/deploy.yml) |
+| Spotify widget API | [Vercel](https://vercel.com) (`api/now-playing.js`) | Yes — Git integration |
+
+Firebase Hosting does not require a card for static sites; the Spotify API runs on Vercel’s free tier.
 
 ## Development
 
@@ -7,69 +14,68 @@ npm install
 npm run dev
 ```
 
-Other useful commands:
+The Spotify widget works in dev via a Vite proxy to your deployed Vercel API (no second terminal needed).
 
 | Command | Description |
 |---------|-------------|
 | `npm run build` | Production build → `dist/` |
-| `npm run preview` | Serve the production build locally |
+| `npm run preview` | Preview production build locally |
 | `npm test` | Run tests once |
-| `npm run test:watch` | Run tests in watch mode |
+| `npm run get-spotify-token` | One-time Spotify refresh token setup |
 
 ### Environment variables
 
-Vite only exposes variables prefixed with `VITE_`. Copy `.env.example` to `.env.local` for local overrides.
+**Frontend** (`.env.local`, prefix `VITE_`):
 
 | Variable | Purpose |
 |----------|---------|
-| `VITE_NOW_PLAYING_API` | Spotify widget API base URL (optional; defaults to same-origin `/api/now-playing`) |
-| `VITE_EMAIL_JS_*` | EmailJS contact form credentials |
+| `VITE_EMAIL_JS_*` | EmailJS contact form |
+| `VITE_NOW_PLAYING_API` | Spotify API base URL (set in `.env.production` for prod) |
 
-Production values live in `.env.production` (committed). Local secrets go in `.env.local` (gitignored).
+**Vercel** (project → Settings → Environment Variables):
+
+| Variable | Purpose |
+|----------|---------|
+| `SPOTIFY_CLIENT_ID` | Spotify app client ID |
+| `SPOTIFY_CLIENT_SECRET` | Spotify app secret |
+| `SPOTIFY_REFRESH_TOKEN` | From `npm run get-spotify-token` |
 
 ---
 
 ## Deployment
 
-The site deploys to **Firebase Hosting** (`dist/` after `vite build`). You can deploy locally or automatically from GitHub.
+Pushing to `main` deploys **both** the site and the Spotify API automatically.
 
-### Option 1: Deploy locally (npm scripts)
+| What changed | Where it deploys | How |
+|--------------|------------------|-----|
+| UI, assets, `src/`, `public/` | Firebase Hosting | GitHub Actions |
+| `api/now-playing.js` | Vercel | Git integration (linked repo) |
 
-**Prerequisites:** Log in once with the Firebase CLI:
+### Manual deploy (optional)
 
-```bash
-npx firebase login
-```
-
-| Script | What it does |
-|--------|----------------|
-| `npm run deploy` | Build + deploy **hosting only** (typical UI changes) |
-| `npm run deploy:all` | Build + deploy hosting **and** Cloud Functions |
-| `npm run deploy:functions` | Deploy Cloud Functions only (no rebuild) |
-
-Example — ship a UI change:
+**Firebase (site only):**
 
 ```bash
 npm run deploy
 ```
 
-`firebase-tools` is included as a dev dependency, so `npx firebase` works without a global install.
+**One-time for CI:** `npx firebase login` locally; add `FIREBASE_TOKEN` to GitHub Actions secrets.
 
-### Option 2: Deploy via GitHub Actions
+**Vercel:** Usually not needed — pushes to `main` redeploy automatically. Use the [Vercel dashboard](https://vercel.com/dashboard) only to redeploy manually or change env vars.
 
-Pushes to `main` automatically build and deploy hosting (see `.github/workflows/deploy.yml`).
+### What does *not* auto-update
 
-**One-time setup:**
+- **Vercel env vars** — set once in the Vercel project settings; changing them does not require a code push.
+- **Firebase env in the browser** — baked in at build time via `.env.production` (e.g. `VITE_NOW_PLAYING_API`). After changing that file, push to `main` or run `npm run deploy`.
 
-1. Create a CI token locally:
-   ```bash
-   npx firebase login:ci
-   ```
-2. In GitHub: **Settings → Secrets and variables → Actions** → New repository secret
-3. Name: `FIREBASE_TOKEN` — paste the token from step 1
+---
 
-After that, merge or push to `main` and the workflow handles the rest. Check progress under the repo’s **Actions** tab.
+## Architecture
 
-### Spotify API note
+```text
+push to main
+    ├─► GitHub Actions → Firebase Hosting (dist/)
+    └─► Vercel Git       → /api/now-playing
 
-The production build may point the Spotify widget at a separate API (see `VITE_NOW_PLAYING_API` in `.env.production`). Hosting deploys do not update that API — only Firebase static files. API changes go to Vercel (`api/`) or Firebase Functions (`functions/`), depending on which backend you use.
+Browser (Firebase URL) ──fetch──► Vercel API (Spotify widget)
+```
