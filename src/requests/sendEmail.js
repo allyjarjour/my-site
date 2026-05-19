@@ -1,8 +1,8 @@
 import emailjs from "@emailjs/browser";
 
-const serviceId = process.env.REACT_APP_EMAIL_JS_SERVICE_ID;
-const templateId = process.env.REACT_APP_EMAIL_JS_TEMPLATE_ID;
-const userId = process.env.REACT_APP_EMAIL_JS_USER_ID;
+const serviceId = import.meta.env.VITE_EMAIL_JS_SERVICE_ID;
+const templateId = import.meta.env.VITE_EMAIL_JS_TEMPLATE_ID;
+const userId = import.meta.env.VITE_EMAIL_JS_USER_ID;
 
 const sendEmail = async (name, email, message, onSuccess, onError) => {
 	try {

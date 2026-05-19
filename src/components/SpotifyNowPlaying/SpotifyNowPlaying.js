@@ -5,7 +5,7 @@ import "./spotifyNowPlaying.scss";
 const POLL_INTERVAL_MS = 30000;
 
 function getApiUrl() {
-	const base = process.env.REACT_APP_NOW_PLAYING_API;
+	const base = import.meta.env.VITE_NOW_PLAYING_API;
 	const search = typeof window !== "undefined" ? window.location.search : "";
 	const forceRecent = search.includes("spotifyRecent=1");
 

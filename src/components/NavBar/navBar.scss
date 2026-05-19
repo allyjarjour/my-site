@@ -103,8 +103,8 @@
       width: 48px;
       height: 48px;
       background-color: currentColor;
-      mask: url("../../../public/sq_logo.png") no-repeat center / contain;
-      -webkit-mask: url("../../../public/sq_logo.png") no-repeat center / contain;
+      mask: url("/sq_logo.png") no-repeat center / contain;
+      -webkit-mask: url("/sq_logo.png") no-repeat center / contain;
     }
 
     .nav-bar__hamburger {

@@ -5,7 +5,7 @@ export const logos = {
 	},
 	reactNative: {
 		title: "React Native",
-		src: "./react_native.png",
+		src: "/react_native.png",
 	},
 	jest: {
 		title: "Jest",
@@ -13,11 +13,11 @@ export const logos = {
 	},
 	reactTestingLibrary: {
 		title: "React Testing Library",
-		src: "./react_testing_library.png",
+		src: "/react_testing_library.png",
 	},
 	reactNativeTestingLibrary: {
 		title: "React Native Testing Library",
-		src: "./react_native_testing_library.png",
+		src: "/react_native_testing_library.png",
 	},
 	css: {
 		title: "CSS3",
@@ -33,7 +33,7 @@ export const logos = {
 	},
 	expo: {
 		title: "Expo Client",
-		src: "./expo_client.png",
+		src: "/expo_client.png",
 	},
 	nativeBase: {
 		title: "NativeBase",
@@ -61,15 +61,15 @@ export const logos = {
 	},
 	tanstack: {
 		title: "Tanstack",
-		src: "./tanstack.png",
+		src: "/tanstack.png",
 	},
 	cypress: {
 		title: "Cypress",
-		src: "./cypress-1.svg",
+		src: "/cypress-1.svg",
 	},
 	tailwind: {
 		title: "Tailwind",
-		src: "./tailwind.png",
+		src: "/tailwind.png",
 	},
 };
 

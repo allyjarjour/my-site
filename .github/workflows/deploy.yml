@@ -1,0 +1,30 @@
+# Deploy static site to Firebase Hosting on push to main.
+#
+# One-time setup (GitHub → Settings → Secrets and variables → Actions):
+#   1. Locally: npx firebase login:ci
+#   2. Add the printed token as secret FIREBASE_TOKEN
+#
+name: Deploy to Firebase Hosting
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Deploy to Firebase
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        run: npx firebase deploy --only hosting --project ally-jarjour --non-interactive
