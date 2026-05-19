@@ -11,7 +11,7 @@ export default function Home() {
 			id="home"
 			style={{
 				paddingTop: isMobile ? 0 : 100,
-				backgroundImage: "url('./sunset.jpg')",
+				backgroundImage: "url('./sunset_com.jpeg')",
 			}}
 		>
 			<div className="home__now-playing">
