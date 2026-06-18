@@ -52,14 +52,6 @@ Pushing to `main` deploys the site and APIs automatically via Vercel Git integra
 | UI, assets, `src/`, `public/` | Vercel (static `dist/`) |
 | `api/*.js` | Vercel (serverless functions) |
 
-### One-time setup (if not already done)
-
-1. Link the repo in the [Vercel dashboard](https://vercel.com/dashboard) (project `my-site`).
-2. Add the env vars above under **Settings → Environment Variables**.
-3. Move your custom domain from Firebase Hosting to Vercel (**Settings → Domains**).
-4. Remove the old Firebase Hosting site or custom domain binding (optional cleanup).
-5. Delete the `FIREBASE_TOKEN` GitHub Actions secret if you added one for the old workflow.
-
 ### Manual deploy (optional)
 
 ```bash
