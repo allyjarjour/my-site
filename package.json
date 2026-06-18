@@ -16,12 +16,13 @@
 	},
 	"scripts": {
 		"dev": "vite",
+		"dev:api": "vercel dev --local-config vercel-dev.json",
 		"build": "vite build",
 		"preview": "vite preview",
 		"test": "vitest run",
 		"test:watch": "vitest",
 		"get-spotify-token": "node scripts/get-spotify-refresh-token.js",
-		"deploy": "npm run build && npx firebase deploy --only hosting"
+		"deploy": "vercel --prod"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.4.6",
@@ -29,8 +30,8 @@
 		"@testing-library/react": "^12.1.3",
 		"@testing-library/user-event": "^13.5.0",
 		"@vitejs/plugin-react": "^4.3.4",
-		"firebase-tools": "^13.0.0",
 		"jsdom": "^25.0.1",
+		"vercel": "^54.14.2",
 		"vite": "^6.0.3",
 		"vitest": "^2.1.8"
 	}

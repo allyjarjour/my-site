@@ -5,21 +5,10 @@ import "./spotifyNowPlaying.scss";
 const POLL_INTERVAL_MS = 30000;
 
 function getApiUrl() {
-	const base = import.meta.env.VITE_NOW_PLAYING_API;
 	const search = typeof window !== "undefined" ? window.location.search : "";
 	const forceRecent = search.includes("spotifyRecent=1");
-
-	const appendMode = (url) => {
-		if (!forceRecent) return url;
-		return url.includes("?") ? `${url}&mode=recent` : `${url}?mode=recent`;
-	};
-
-	// Local dev: Vite proxies /api/now-playing → Vercel
-	if (!base) return appendMode("/api/now-playing");
-
-	const normalized = base.replace(/\/$/, "");
-	if (/now[-_]?playing/i.test(normalized)) return appendMode(normalized);
-	return appendMode(`${normalized}/now-playing`);
+	if (!forceRecent) return "/api/now-playing";
+	return "/api/now-playing?mode=recent";
 }
 
 export default function SpotifyNowPlaying() {

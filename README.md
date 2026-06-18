@@ -1,27 +1,28 @@
-My personal website — React + Vite.
+My personal website — React + Vite, hosted on [Vercel](https://vercel.com).
 
 | Part | Host | Deploys on push to `main` |
 |------|------|---------------------------|
-| Site (UI) | [Firebase Hosting](https://firebase.google.com/docs/hosting) (`ally-jarjour`) | Yes — [GitHub Actions](.github/workflows/deploy.yml) |
-| Spotify widget API | [Vercel](https://vercel.com) (`api/now-playing.js`) | Yes — Git integration |
-
-Firebase Hosting does not require a card for static sites; the Spotify API runs on Vercel’s free tier.
+| Site (UI) + widget APIs | [Vercel](https://vercel.com) | Yes — Git integration |
 
 ## Development
 
 ```bash
 npm install
-npm run dev
+npm run dev        # UI only (fast)
+npm run dev:api    # UI + /api/* (needs Vercel login)
 ```
 
-The Spotify widget works in dev via a Vite proxy to your deployed Vercel API (no second terminal needed).
+`npm run dev:api` runs `vercel dev`, which serves the Vite app and API routes locally using env vars from your linked Vercel project. Use `npm run dev` for quick UI work without the widgets.
 
 | Command | Description |
 |---------|-------------|
+| `npm run dev` | Vite only — fast local UI dev |
+| `npm run dev:api` | UI + API via `vercel dev` (Spotify/Hardcover widgets) |
 | `npm run build` | Production build → `dist/` |
 | `npm run preview` | Preview production build locally |
 | `npm test` | Run tests once |
 | `npm run get-spotify-token` | One-time Spotify refresh token setup |
+| `npm run deploy` | Manual production deploy via Vercel CLI |
 
 ### Environment variables
 
@@ -30,7 +31,6 @@ The Spotify widget works in dev via a Vite proxy to your deployed Vercel API (no
 | Variable | Purpose |
 |----------|---------|
 | `VITE_EMAIL_JS_*` | EmailJS contact form |
-| `VITE_NOW_PLAYING_API` | Spotify API base URL (set in `.env.production` for prod) |
 
 **Vercel** (project → Settings → Environment Variables):
 
@@ -39,43 +39,43 @@ The Spotify widget works in dev via a Vite proxy to your deployed Vercel API (no
 | `SPOTIFY_CLIENT_ID` | Spotify app client ID |
 | `SPOTIFY_CLIENT_SECRET` | Spotify app secret |
 | `SPOTIFY_REFRESH_TOKEN` | From `npm run get-spotify-token` |
+| `HARDCOVER_API_TOKEN` | Token from [hardcover.app/settings](https://hardcover.app/settings) → Hardcover API |
 
 ---
 
 ## Deployment
 
-Pushing to `main` deploys **both** the site and the Spotify API automatically.
+Pushing to `main` deploys the site and APIs automatically via Vercel Git integration.
 
-| What changed | Where it deploys | How |
-|--------------|------------------|-----|
-| UI, assets, `src/`, `public/` | Firebase Hosting | GitHub Actions |
-| `api/now-playing.js` | Vercel | Git integration (linked repo) |
+| What changed | Deploys |
+|--------------|---------|
+| UI, assets, `src/`, `public/` | Vercel (static `dist/`) |
+| `api/*.js` | Vercel (serverless functions) |
+
+### One-time setup (if not already done)
+
+1. Link the repo in the [Vercel dashboard](https://vercel.com/dashboard) (project `my-site`).
+2. Add the env vars above under **Settings → Environment Variables**.
+3. Move your custom domain from Firebase Hosting to Vercel (**Settings → Domains**).
+4. Remove the old Firebase Hosting site or custom domain binding (optional cleanup).
+5. Delete the `FIREBASE_TOKEN` GitHub Actions secret if you added one for the old workflow.
 
 ### Manual deploy (optional)
-
-**Firebase (site only):**
 
 ```bash
 npm run deploy
 ```
 
-**One-time for CI:** `npx firebase login` locally; add `FIREBASE_TOKEN` to GitHub Actions secrets.
-
-**Vercel:** Usually not needed — pushes to `main` redeploy automatically. Use the [Vercel dashboard](https://vercel.com/dashboard) only to redeploy manually or change env vars.
-
-### What does *not* auto-update
-
-- **Vercel env vars** — set once in the Vercel project settings; changing them does not require a code push.
-- **Firebase env in the browser** — baked in at build time via `.env.production` (e.g. `VITE_NOW_PLAYING_API`). After changing that file, push to `main` or run `npm run deploy`.
+Usually not needed — pushes to `main` redeploy automatically.
 
 ---
 
 ## Architecture
 
 ```text
-push to main
-    ├─► GitHub Actions → Firebase Hosting (dist/)
-    └─► Vercel Git       → /api/now-playing
+push to main → Vercel
+    ├─► dist/          (static React app)
+    └─► api/*          (Spotify + Hardcover widgets)
 
-Browser (Firebase URL) ──fetch──► Vercel API (Spotify widget)
+Browser ──same origin──► /api/now-playing, /api/currently-reading
 ```
